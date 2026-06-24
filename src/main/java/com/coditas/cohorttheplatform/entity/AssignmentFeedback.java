@@ -1,6 +1,6 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
-import com.example.cohorttheplatform.constants.Grades;
+import com.coditas.cohorttheplatform.constants.Grades;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,17 +20,17 @@ public class AssignmentFeedback {
 
     @ManyToOne
     @JoinColumn(name = "assignment_id", nullable = false)
-    private Assignments assignment;
+    private Assignment assignment;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
-    private Assignments instructor;
+    private Assignment instructor;
 
     @Column(name = "feedback", nullable = false)
     private String feedback;
 
     @Column(name = "course_id", nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
     private Grades grade;
-
 
 }

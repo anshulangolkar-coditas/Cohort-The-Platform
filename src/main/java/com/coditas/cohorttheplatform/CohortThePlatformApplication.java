@@ -1,4 +1,4 @@
-package com.example.cohorttheplatform;
+package com.coditas.cohorttheplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

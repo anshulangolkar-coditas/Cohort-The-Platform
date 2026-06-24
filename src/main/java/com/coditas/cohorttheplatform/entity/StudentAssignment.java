@@ -1,10 +1,9 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "student_assignment")
 @Builder
-public class StudentAssignments {
+public class StudentAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +22,11 @@ public class StudentAssignments {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false, updatable = false)
-    private Assignments student;
+    private Assignment student;
 
     @ManyToOne
     @JoinColumn(name = "assignment_id", nullable = false, updatable = false)
-    private Assignments assignment;
+    private Assignment assignment;
 
     @Column(name = "assignment_upload_link", nullable = false)
     private String uploadLink;

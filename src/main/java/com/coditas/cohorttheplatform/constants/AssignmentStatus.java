@@ -1,4 +1,4 @@
-package com.example.cohorttheplatform.constants;
+package com.coditas.cohorttheplatform.constants;
 
 public enum AssignmentStatus {
 

@@ -1,4 +1,4 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,11 +19,11 @@ public class StudentCourseEnrollment {
 
     @ManyToOne
     @JoinColumn(name = "course_id",referencedColumnName = "course_id", nullable = false)
-    private Courses course;
+    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "user_id", nullable = false)
-    private Users student;
+    private User student;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;

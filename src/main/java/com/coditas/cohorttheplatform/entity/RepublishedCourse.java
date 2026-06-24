@@ -1,8 +1,7 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -11,28 +10,31 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "courses")
+@Table(name = "republished_course")
 @Builder
-public class Courses {
+public class RepublishedCourse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id", nullable = false, updatable = false, unique = true)
-    private Long courseId;
+    @Column(name = "republised_course_id", nullable = false, updatable = false, unique = true)
+    private Long republishedCourseId;
 
-    @Column(name = "course_name", nullable = false)
-    private String courseName;
+    @Column(name = "start_date", nullable = false, updatable = false)
+    private LocalDate startDate;
 
-    @Column(name = "upload_date", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDate uploadedDate;
+    @Column(name = "end_date", nullable = false, updatable = false)
+    private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id",referencedColumnName = "course_id" ,nullable = false)
+    private Course course;
 
     @Column(name = "enrollment_limit", nullable = false)
     private Long enrollmentLimit;
 
     @OneToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "user_id", nullable = false)
-    private Users instructor;
+    private User instructor;
 
     @Column(name = "course_link", nullable = false, unique = true)
     private String courseLink;
@@ -40,7 +42,5 @@ public class Courses {
     @Column(name = "is-active", nullable = false)
     @Builder.Default
     private boolean isActive = true;
-
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,11 +30,11 @@ public class CourseMaterial {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "user_id", nullable = false)
-    private Users instructor;
+    private User instructor;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
-    private Courses course;
+    private Course course;
 
 
 }

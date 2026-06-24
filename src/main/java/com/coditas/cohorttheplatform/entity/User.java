@@ -1,10 +1,9 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
-import com.example.cohorttheplatform.constants.Role;
+import com.coditas.cohorttheplatform.constants.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
@@ -13,9 +12,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @Builder
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +41,5 @@ public class Users {
     @Column(name = "is-active", nullable = false)
     @Builder.Default
     private boolean isActive = true;
-
-
 
 }

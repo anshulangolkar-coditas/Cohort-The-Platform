@@ -1,10 +1,9 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,9 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "assignments")
+@Table(name = "assignment")
 @Builder
-public class Assignments {
+public class Assignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class Assignments {
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
-    private Courses course;
+    private Course course;
 
     @Column(name = "uploaded_date", nullable = false, updatable = false)
     @CreationTimestamp
@@ -34,7 +33,7 @@ public class Assignments {
 
     @ManyToOne
     @JoinColumn(name = "uploaded_by", referencedColumnName = "user_id", nullable = false)
-    private Users uploadedBy;
+    private User uploadedBy;
 
     @Column(name = "is_active", nullable = false)
     @Builder.Default

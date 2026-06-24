@@ -1,4 +1,4 @@
-package com.example.cohorttheplatform.entity;
+package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,9 +10,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "announcements")
+@Table(name = "announcement")
 @Builder
-public class Announcements {
+public class Announcement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Announcements {
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "", nullable = false)
-    private Courses course;
+    private Course course;
 
     @Column(name = "content", nullable = false)
     private String content;
@@ -31,6 +31,6 @@ public class Announcements {
 
     @ManyToOne
     @JoinColumn(name = "announcement_made_by", referencedColumnName = "", nullable = false)
-    private Users announcementMadeBy;
+    private User announcementMadeBy;
 
 }
