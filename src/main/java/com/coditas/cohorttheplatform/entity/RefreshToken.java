@@ -18,25 +18,26 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "refresh_token_id", nullable = false, updatable = false, unique = true)
     private Long refreshTokenId;
 
-    @Column(nullable = false)
+    @Column(name = "token", nullable = false, updatable = false)
     private String token;
 
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Builder.Default
+    private Date createdAt = new Date();
 
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime expiresAt;
+    @Column(name = "expires_at", nullable = false, updatable = false)
+    @Builder.Default
+    private Date expiresAt = new Date();
 
-    @Column(nullable = false)
+    @Column(name = "blacklisted", nullable = false)
     @Builder.Default
     private Boolean blackListed = false;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id",nullable = false)
     private User user;
 
 }

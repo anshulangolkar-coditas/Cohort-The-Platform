@@ -10,14 +10,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "republished_course")
+@Table(name = "course_batch")
 @Builder
-public class RepublishedCourse {
+public class CourseBatch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "republised_course_id", nullable = false, updatable = false, unique = true)
-    private Long republishedCourseId;
+    @Column(name = "course_batch_id", nullable = false, updatable = false, unique = true)
+    private Long courseBatchId;
 
     @Column(name = "start_date", nullable = false, updatable = false)
     private LocalDate startDate;
@@ -29,15 +29,9 @@ public class RepublishedCourse {
     @JoinColumn(name = "course_id",referencedColumnName = "course_id" ,nullable = false)
     private Course course;
 
-    @Column(name = "enrollment_limit", nullable = false)
-    private Long enrollmentLimit;
-
     @OneToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "user_id", nullable = false)
     private User instructor;
-
-    @Column(name = "course_link", nullable = false, unique = true)
-    private String courseLink;
 
     @Column(name = "is-active", nullable = false)
     @Builder.Default

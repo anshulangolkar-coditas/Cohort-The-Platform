@@ -1,11 +1,18 @@
 package com.coditas.cohorttheplatform.util;
 
+import com.coditas.cohorttheplatform.entity.RefreshToken;
+import com.coditas.cohorttheplatform.entity.User;
+import com.coditas.cohorttheplatform.exception.ExceptionMessages;
+import com.coditas.cohorttheplatform.exception.RefreshTokenExpiredException;
 import com.coditas.cohorttheplatform.repository.RefreshTokenRepository;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Key;
 import java.util.Date;
@@ -17,16 +24,14 @@ public class JwtUtil {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    private String secretKey;
     private final Key key;
 
     public JwtUtil(@Value("${JWT_SECRET_KEY}")String secretKey){
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
-        this.secretKey = secretKey;
 
     }
 
-    private static final Long REFRESH_TOKEN_EXPIRY = 30L; // days
+    private static final long REFRESH_TOKEN_EXPIRY = 30L;
     private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
 
     public String generateToken(String username){
@@ -58,7 +63,8 @@ public class JwtUtil {
         return extractUsername(token).equals(username) && !isTokenExpired(token);
     }
 
-    public String generateRefreshToken(Users user){
+    @Transactional
+    public String generateRefreshToken(User user){
 
         String token = UUID.randomUUID().toString();
 

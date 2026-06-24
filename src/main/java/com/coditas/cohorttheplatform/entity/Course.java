@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,18 +23,8 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
-    @Column(name = "start_date", nullable = false, updatable = false)
-    private LocalDate startDate;
-
-    @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
-
     @Column(name = "enrollment_limit", nullable = false)
     private Long enrollmentLimit;
-
-    @OneToOne
-    @JoinColumn(name = "instructor_id", referencedColumnName = "user_id", nullable = false)
-    private User instructor;
 
     @Column(name = "course_link", nullable = false, unique = true)
     private String courseLink;
@@ -41,5 +32,8 @@ public class Course {
     @Column(name = "is-active", nullable = false)
     @Builder.Default
     private boolean isActive = true;
+
+    @OneToMany(mappedBy = "course")
+    private List<CourseBatch> courseBatches;
 
 }

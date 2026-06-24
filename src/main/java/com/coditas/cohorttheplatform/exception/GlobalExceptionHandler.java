@@ -24,5 +24,31 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> authenticationException(
+            AuthenticationException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse();
+
+        errorResponse.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        errorResponse.setDateTime(LocalDateTime.now());
+        errorResponse.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ResponseEntity<ErrorResponse> refreshTokenExpiredException(
+            RefreshTokenExpiredException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse();
+
+        errorResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setDateTime(LocalDateTime.now());
+        errorResponse.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 
 }

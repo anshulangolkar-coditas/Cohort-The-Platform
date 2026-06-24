@@ -1,6 +1,9 @@
 package com.coditas.cohorttheplatform.exception;
 
 public class ValidationMessages {
+    private ValidationMessages() {
+        /* This utility class should not be instantiated */
+    }
 
     public static final String EMAIL_REQUIRED = "Email field should not be blank";
     public static final String PASSWORD_REQUIRED = "Password field cannot be blank";

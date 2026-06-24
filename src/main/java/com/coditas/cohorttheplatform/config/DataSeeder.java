@@ -20,13 +20,16 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        userRepository.save(User.builder()
-                .fullName("Anshul Angolkar")
-                .email("anshul.angolkar@coditas.com")
-                .role(Role.ADMIN)
-                .joinedDate(LocalDate.parse("2026-06-24"))
-                .password(passwordEncoder.encode("anshul@123"))
-                .build());
+        String email = "anshul.angolkar@coditas.com";
 
+        if(!userRepository.existsByEmail(email)){
+            userRepository.save(User.builder()
+                    .fullName("Anshul Angolkar")
+                    .email(email)
+                    .role(Role.ADMIN)
+                    .joinedDate(LocalDate.parse("2026-06-24"))
+                    .password(passwordEncoder.encode("anshul@123"))
+                    .build());
+        }
     }
 }
