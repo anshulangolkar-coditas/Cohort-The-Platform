@@ -1,3 +1,17 @@
 package com.coditas.cohorttheplatform.service;
 
-public interface StudentService {}
+import com.coditas.cohorttheplatform.dto.common.CourseDetailsDto;
+import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
+
+public interface StudentService {
+    Page<CourseDetailsDto> getAllCourses(
+            int page,
+            int size);
+
+    GetAllCourseBatch getAllBatches(
+            @NotNull Long courseId,
+            int page,
+            int size);
+}

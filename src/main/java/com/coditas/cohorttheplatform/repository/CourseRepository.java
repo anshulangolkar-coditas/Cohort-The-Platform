@@ -11,10 +11,4 @@ import org.springframework.stereotype.Repository;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     boolean existsByCourseName(String courseName);
-
-    Page<Course> findAllCourseByCreatedBy(
-            CohortUser createdBy,
-            Pageable pageable);
-
-
 }

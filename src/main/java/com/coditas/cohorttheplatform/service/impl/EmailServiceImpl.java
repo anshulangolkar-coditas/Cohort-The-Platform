@@ -9,6 +9,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -51,6 +52,37 @@ public class EmailServiceImpl implements EmailService {
         return uniqueKey;
     }
 
+    @Override
+    public void materialUploadEmail(List<String> emailList){
 
+        if(emailList.isEmpty()){
+            return;
+        }
+
+/*        String[] emailIds = new String[emailList.size()];
+        emailIds = emailList.toArray(emailIds);*/
+
+        String[] emailIds = emailList.toArray(new String[0]);
+
+        String materialUploadMessage = """
+                New material has been uploaded. Please go the dashboard and check it out!!!
+                """;
+
+        try {
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+            mailMessage.setFrom(sender);
+            mailMessage.setBcc(emailIds);
+            mailMessage.setSubject("New Material Uploaded!!!");
+            mailMessage.setText(materialUploadMessage);
+
+            javaMailSender.send(mailMessage);
+
+        }catch (EmailSendingFailureException ex){
+            throw new EmailSendingFailureException(ExceptionMessages.EMAIL_SENDING_FAILURE);
+        }
+
+    }
 
 }
