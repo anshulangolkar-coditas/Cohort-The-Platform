@@ -1,6 +1,8 @@
 package com.coditas.cohorttheplatform.controller;
 
+import com.coditas.cohorttheplatform.dto.course.request.AddCourseBatchRequestDto;
 import com.coditas.cohorttheplatform.dto.course.request.AddCourseRequestDto;
+import com.coditas.cohorttheplatform.dto.course.response.AddCourseBatchResponseDto;
 import com.coditas.cohorttheplatform.dto.course.response.AddCourseResponseDto;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
@@ -37,12 +39,14 @@ public class CourseController {
             @NotNull
             @PathVariable
             Long courseId,
-            @Valid @RequestBody AddCourseBatchRequestDto request,
+            @Valid @RequestBody
+            AddCourseBatchRequestDto request,
             @AuthenticationPrincipal CohortUser user){
 
-        AddCourseBatchResponseDto details = courseBatchService.addCourseBatch(courseId, request, user)
+        AddCourseBatchResponseDto details = courseService.addCourseBatch(courseId, request, user);
 
-
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
+                "Batch created successfully",details));
     }
 
 

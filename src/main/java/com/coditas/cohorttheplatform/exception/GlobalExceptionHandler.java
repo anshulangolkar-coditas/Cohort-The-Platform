@@ -126,8 +126,17 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<ErrorResponse> authorizationException(
+            AuthorizationException ex) {
 
+        ErrorResponse errorResponse = new ErrorResponse();
 
+        errorResponse.setStatusCode(HttpStatus.FORBIDDEN.value());
+        errorResponse.setDateTime(LocalDateTime.now());
+        errorResponse.setMessage(ex.getMessage());
 
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
 
 }

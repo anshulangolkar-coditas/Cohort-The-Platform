@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CohortUserDetails {
+public class CohortUserDetailsDto {
 
     private Long userId;
     private String fullName;

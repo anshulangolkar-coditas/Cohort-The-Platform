@@ -20,6 +20,9 @@ public class CourseBatch {
     @Column(name = "course_batch_id", nullable = false, updatable = false, unique = true)
     private Long courseBatchId;
 
+    @Column(name = "batch_name", nullable = false)
+    private String batchName;
+
     @ManyToOne
     @JoinColumn(name = "course_id",referencedColumnName = "course_id" ,nullable = false)
     private Course course;

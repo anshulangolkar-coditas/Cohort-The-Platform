@@ -1,6 +1,6 @@
 package com.coditas.cohorttheplatform.dto.course.response;
 
-import com.coditas.cohorttheplatform.dto.common.CohortUserDetails;
+import com.coditas.cohorttheplatform.dto.common.CohortUserDetailsDto;
 import lombok.*;
 
 @Getter
@@ -13,6 +13,6 @@ public class AddCourseResponseDto {
     private Long courseId;
     private String courseName;
     private String courseDescription;
-    private CohortUserDetails createdBy;
+    private CohortUserDetailsDto createdBy;
 
 }

@@ -21,13 +21,13 @@ public class Assignment {
     private Long assignmentId;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "course_batch_id", referencedColumnName = "course_batch_id", nullable = false)
+    private CourseBatch courseBatch;
 
-    @Column(name = "assignmnet_title", nullable = false)
+    @Column(name = "assignment_title", nullable = false)
     private String assignmentTitle;
 
-    @Column(name = "assignmnet_description", nullable = false)
+    @Column(name = "assignment_description", nullable = false)
     private String assignmentDescription;
 
     @Column(name = "created_at", nullable = false, updatable = false)

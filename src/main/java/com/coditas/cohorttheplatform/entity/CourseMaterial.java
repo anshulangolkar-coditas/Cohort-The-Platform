@@ -2,6 +2,7 @@ package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -33,6 +34,7 @@ public class CourseMaterial {
     private String fileKey;
 
     @Column(name = "upload_date", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDate uploadedOn;
 
     @ManyToOne

@@ -16,6 +16,14 @@ public class ExceptionMessages {
     public static final String INVALID_INVITATION = "Invitation invalid, please try again!!!";
     public static final String EXPIRED_INVITATION = "Invitation expired, please contact admin.";
     public static final String COURSE_EXISTS = "Course already exists.";
+    public static final String COURSE_NOT_FOUND = "Course Not Found.";
+    public static final String COURSE_USER_UNAUTHORIZED = "Course Does not belong to this Admin.";
+    public static final String INSTRUCTOR_ALREADY_ASSIGNED = "This instructor is already conducting a batch";
+    public static final String START_DATE_OR_END_DATE_INVALID = "Start or End date invalid";
+    public static final String BATCH_ALREADY_EXISTS = "Batch by this name already exists";
+    public static final String BATCH_NOT_FOUND = "Batch Not Found";
+    public static final String BATCH_COURSE_MISMATCH = "Course and batch not matched";
+
 
 
 }
