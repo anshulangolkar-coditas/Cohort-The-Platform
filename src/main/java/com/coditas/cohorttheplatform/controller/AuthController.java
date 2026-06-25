@@ -3,6 +3,7 @@ package com.coditas.cohorttheplatform.controller;
 import com.coditas.cohorttheplatform.dto.auth.request.LoginRequestDto;
 import com.coditas.cohorttheplatform.dto.auth.request.RegisterRequestDto;
 import com.coditas.cohorttheplatform.dto.auth.response.LoginResponseDto;
+import com.coditas.cohorttheplatform.dto.auth.response.RegisterResponseDto;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.AuthService;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class AuthController {
                 "User Logged-in successfully", details));
     }
 
-    @PostMapping("/register)")
+    @PostMapping("/register")
     public ResponseEntity<ApplicationResponse<RegisterResponseDto>> register(@Valid @RequestBody
     RegisterRequestDto request){
 

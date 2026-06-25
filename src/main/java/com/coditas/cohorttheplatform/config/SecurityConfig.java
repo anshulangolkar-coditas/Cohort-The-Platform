@@ -1,7 +1,7 @@
 package com.coditas.cohorttheplatform.config;
 
 import com.coditas.cohorttheplatform.filter.JwtFiler;
-import com.coditas.cohorttheplatform.service.CustomUserDetailsService;
+import com.coditas.cohorttheplatform.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -5,4 +5,5 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
     <include file="db/changelog/db.changelog-001-initial-entities.sql"/>
+    <include file="db/changelog/db.changelog-002-invitation-table-added.sql"/>
 </databaseChangeLog>

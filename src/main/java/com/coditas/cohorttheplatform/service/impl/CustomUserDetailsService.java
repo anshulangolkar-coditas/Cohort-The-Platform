@@ -1,4 +1,4 @@
-package com.coditas.cohorttheplatform.service;
+package com.coditas.cohorttheplatform.service.impl;
 
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;

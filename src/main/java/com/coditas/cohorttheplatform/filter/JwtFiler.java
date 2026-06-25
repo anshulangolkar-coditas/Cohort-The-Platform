@@ -4,7 +4,7 @@ import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.response.ErrorResponse;
-import com.coditas.cohorttheplatform.service.CustomUserDetailsService;
+import com.coditas.cohorttheplatform.service.impl.CustomUserDetailsService;
 import com.coditas.cohorttheplatform.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,9 +55,10 @@ public class JwtFiler extends OncePerRequestFilter {
         }catch (JwtException e){
             response.setStatus(401);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            ErrorResponse errorResponse=new ErrorResponse(401, ExceptionMessages.JWT_TOKEN_EXPIRED, LocalDateTime.now());
-            ApplicationResponse<List<ErrorResponse>> applicationResponse=new ApplicationResponse<>(List.of(errorResponse));
-            response.getWriter().write(objectMapper.writeValueAsString(applicationResponse));
+            ErrorResponse errorResponse=new ErrorResponse
+                    (401, ExceptionMessages.JWT_TOKEN_EXPIRED, LocalDateTime.now());
+            response.getWriter().write(objectMapper.writeValueAsString(ApplicationResponse
+                    .error(HttpStatus.BAD_REQUEST.value(), ExceptionMessages.JWT_TOKEN_EXPIRED, List.of(errorResponse))));
             return;
         }
 

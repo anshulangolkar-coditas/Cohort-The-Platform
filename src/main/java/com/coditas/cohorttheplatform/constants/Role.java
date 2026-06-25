@@ -1,6 +1,8 @@
 package com.coditas.cohorttheplatform.constants;
 
-import java.util.List;
+import com.coditas.cohorttheplatform.exception.ExceptionMessages;
+import com.coditas.cohorttheplatform.exception.NotFoundException;
+
 
 public enum Role {
 
@@ -9,12 +11,14 @@ public enum Role {
     STUDENT;
 
 
-    public static List<Role> toValue(List<String> roles){
+    public static Role toValue(String role){
 
-        return roles.stream()
-                .map(String::toUpperCase)
-                .map(Role::valueOf)
-                .toList();
+        for(Role r : Role.values()){
+            if(role.equalsIgnoreCase(r.name())){
+                return r;
+            }
+        }
+        throw new NotFoundException(ExceptionMessages.INVALID_ROLE);
     }
 
 }

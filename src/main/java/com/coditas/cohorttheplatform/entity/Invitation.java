@@ -46,6 +46,6 @@ public class Invitation {
 
     @ManyToOne
     @JoinColumn(name = "inviter_id", referencedColumnName = "user_id")
-    private CohortUser inviterId;
+    private CohortUser inviter;
 
 }
