@@ -5,9 +5,11 @@ import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialR
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.entity.Course;
 import com.coditas.cohorttheplatform.entity.CourseBatch;
+import com.coditas.cohorttheplatform.entity.CourseMaterial;
 import com.coditas.cohorttheplatform.exception.AuthorizationException;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.exception.NotFoundException;
+import com.coditas.cohorttheplatform.mappings.CourseBatchControllerMapping;
 import com.coditas.cohorttheplatform.repository.CourseBatchRepository;
 import com.coditas.cohorttheplatform.repository.CourseMaterialRepository;
 import com.coditas.cohorttheplatform.repository.CourseRepository;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class CourseBatchServiceImpl implements CourseBatchService {
@@ -26,6 +30,7 @@ public class CourseBatchServiceImpl implements CourseBatchService {
     private final CourseRepository courseRepository;
     private final CourseBatchRepository courseBatchRepository;
     private final S3Service s3Service;
+    private final CourseBatchControllerMapping courseBatchControllerMapping;
 
     @Transactional
     @Override
@@ -33,7 +38,6 @@ public class CourseBatchServiceImpl implements CourseBatchService {
             Long courseId,
             Long batchId,
             AddCourseMaterialRequestDto request,
-            MultipartFile file,
             CohortUser user) {
 
         Course course = findCourseById(courseId);
@@ -43,10 +47,18 @@ public class CourseBatchServiceImpl implements CourseBatchService {
             throw new AuthorizationException(ExceptionMessages.BATCH_COURSE_MISMATCH);
         }
 
-        String fileKey = s3Service.uploadFile(file);
-        
+        String fileKey = s3Service.uploadFile(request.getFile());
 
+    CourseMaterial material =
+        courseMaterialRepository.save(
+            CourseMaterial.builder()
+                .course(course)
+                .fileName(request.getFile().getOriginalFilename())
+                .fileKey(fileKey)
+                .instructor(user)
+                .build());
 
+        return courseBatchControllerMapping.addCourseMaterialResponse(material, course);
     }
 
     private Course findCourseById(Long courseId){

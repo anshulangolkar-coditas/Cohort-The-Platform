@@ -20,9 +20,6 @@ public class CourseMaterial {
     @Column(name = "material_id", nullable = false, updatable = false, unique = true)
     private Long materialId;
 
-    @Column(name = "material_name", nullable = false)
-    private String materialName;
-
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
     private Course course;

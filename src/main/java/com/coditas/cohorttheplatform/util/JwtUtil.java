@@ -3,6 +3,7 @@ package com.coditas.cohorttheplatform.util;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.entity.RefreshToken;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
+import com.coditas.cohorttheplatform.exception.InvalidRequestException;
 import com.coditas.cohorttheplatform.exception.RefreshTokenExpiredException;
 import com.coditas.cohorttheplatform.repository.RefreshTokenRepository;
 import io.jsonwebtoken.Claims;
@@ -31,7 +32,7 @@ public class JwtUtil {
 
     }
 
-    private static final long REFRESH_TOKEN_EXPIRY = 30L;
+    private static final long REFRESH_TOKEN_EXPIRY = 604800000L;
     private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
 
     public String generateToken(String username){
@@ -82,10 +83,8 @@ public class JwtUtil {
     public boolean isRefreshTokenValid(RefreshToken refreshToken){
 
         if(refreshToken.getExpiresAt().before(new Date())){
-            throw new RefreshTokenExpiredException(ExceptionMessages.REFRESH_TOKEN_EXPIRED);
+            throw new InvalidRequestException(ExceptionMessages.REFRESH_TOKEN_EXPIRED);
         }
         return true;
     }
-
-
 }

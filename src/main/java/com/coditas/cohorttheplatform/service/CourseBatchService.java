@@ -7,11 +7,12 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 public interface CourseBatchService {
     AddCourseMaterialResponseDto addMaterial(
             @NotNull Long courseId,
             @NotNull Long batchId,
             @Valid AddCourseMaterialRequestDto request,
-            MultipartFile file,
             CohortUser user);
 }

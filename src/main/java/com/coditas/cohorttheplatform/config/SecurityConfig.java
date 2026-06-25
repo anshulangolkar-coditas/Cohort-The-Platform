@@ -31,13 +31,18 @@ public class SecurityConfig {
                 "/auth/**"
         };
 
-        http.authorizeHttpRequests(auth ->
-                auth
-                        .requestMatchers(PUBLIC_URLS).permitAll()
-                        .requestMatchers("/courses/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers("/on-board/**").hasRole(Role.ADMIN.name())
-                        .anyRequest().authenticated()
-                                  );
+    http.authorizeHttpRequests(
+        auth ->
+            auth.requestMatchers(PUBLIC_URLS)
+                .permitAll()
+                .requestMatchers("/courses/**")
+                .hasRole(Role.ADMIN.name())
+                .requestMatchers("/on-board/**")
+                .hasRole(Role.ADMIN.name())
+                .requestMatchers("/*/batches/**")
+                .hasAnyRole(Role.ADMIN.name(), Role.INSTRUCTOR.name())
+                .anyRequest()
+                .permitAll());
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

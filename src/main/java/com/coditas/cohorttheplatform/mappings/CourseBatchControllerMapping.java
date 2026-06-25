@@ -15,7 +15,6 @@ public class CourseBatchControllerMapping {
     public AddCourseMaterialResponseDto addCourseMaterialResponse(CourseMaterial material, Course course){
         return AddCourseMaterialResponseDto.builder()
                 .materialId(material.getMaterialId())
-                .materialName(material.getMaterialName())
                 .fileName(material.getFileName())
                 .uploadedOn(material.getUploadedOn())
                 .courseDetails(commonDtoMapping.courseDetails(course))

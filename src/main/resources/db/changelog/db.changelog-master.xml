@@ -9,4 +9,5 @@
     <include file="/db/changelog/db.changelog-003-course-table-created-by-column.sql"/>
     <include file="/db/changelog/db.changelog-004-course-batch-table-batch-name.sql"/>
     <include file="/db/changelog/db.changelog-005-basic-changes-in-assignment.sql"/>
+    <include file="/db/changelog/db.changelog-006-drop-column-in-material-table.sql"/>
 </databaseChangeLog>

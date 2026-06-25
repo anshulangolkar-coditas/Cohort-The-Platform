@@ -23,6 +23,8 @@ public class ExceptionMessages {
     public static final String BATCH_ALREADY_EXISTS = "Batch by this name already exists";
     public static final String BATCH_NOT_FOUND = "Batch Not Found";
     public static final String BATCH_COURSE_MISMATCH = "Course and batch not matched";
+    public static final String REFRESH_TOKEN_NOT_FOUND = "Refresh token not found";
+    public static final String USER_ALREADY_EXISTS = "User already exists";
 
 
 

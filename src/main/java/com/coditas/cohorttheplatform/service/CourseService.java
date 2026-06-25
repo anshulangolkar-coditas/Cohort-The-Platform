@@ -1,5 +1,6 @@
 package com.coditas.cohorttheplatform.service;
 
+import com.coditas.cohorttheplatform.dto.common.CourseDetailsDto;
 import com.coditas.cohorttheplatform.dto.course.request.AddCourseBatchRequestDto;
 import com.coditas.cohorttheplatform.dto.course.request.AddCourseRequestDto;
 import com.coditas.cohorttheplatform.dto.course.response.AddCourseBatchResponseDto;
@@ -7,6 +8,7 @@ import com.coditas.cohorttheplatform.dto.course.response.AddCourseResponseDto;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
 
 public interface CourseService {
     AddCourseResponseDto addCourse(
@@ -17,4 +19,6 @@ public interface CourseService {
             @NotNull Long courseId,
             @Valid AddCourseBatchRequestDto request,
             CohortUser user);
+
+    Page<CourseDetailsDto> getAllCourses(int page, int size);
 }

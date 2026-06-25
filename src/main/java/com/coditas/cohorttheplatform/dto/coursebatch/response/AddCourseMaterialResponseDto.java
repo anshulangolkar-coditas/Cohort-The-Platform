@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class AddCourseMaterialResponseDto {
 
     private Long materialId;
-    private String materialName;
     private String fileName;
     private LocalDate uploadedOn;
     private CourseDetailsDto courseDetails;

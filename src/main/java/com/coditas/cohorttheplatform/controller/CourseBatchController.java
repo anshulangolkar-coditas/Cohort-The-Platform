@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/courses")
@@ -25,11 +27,10 @@ public class CourseBatchController {
     public ResponseEntity<ApplicationResponse<AddCourseMaterialResponseDto>> addMaterial(
             @NotNull @PathVariable Long courseId,
             @NotNull @PathVariable Long batchId,
-            @Valid @RequestBody AddCourseMaterialRequestDto request,
-            @RequestParam MultipartFile file,
-            @AuthenticationPrincipal CohortUser user){
+            @Valid @ModelAttribute AddCourseMaterialRequestDto request,
+            @AuthenticationPrincipal CohortUser user) {
 
-        AddCourseMaterialResponseDto details = courseBatchService.addMaterial(courseId, batchId, request, file, user);
+        AddCourseMaterialResponseDto details = courseBatchService.addMaterial(courseId, batchId, request, user);
 
         return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
                 "Materials added successfully", details));

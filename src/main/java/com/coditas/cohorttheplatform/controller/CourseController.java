@@ -1,5 +1,6 @@
 package com.coditas.cohorttheplatform.controller;
 
+import com.coditas.cohorttheplatform.dto.common.CourseDetailsDto;
 import com.coditas.cohorttheplatform.dto.course.request.AddCourseBatchRequestDto;
 import com.coditas.cohorttheplatform.dto.course.request.AddCourseRequestDto;
 import com.coditas.cohorttheplatform.dto.course.response.AddCourseBatchResponseDto;
@@ -10,6 +11,7 @@ import com.coditas.cohorttheplatform.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +36,17 @@ public class CourseController {
                 "Course Added Successfully", details));
     }
 
+
+    @GetMapping
+    public ResponseEntity<ApplicationResponse<Page<CourseDetailsDto>>> getAllCourses( @RequestParam(required = false, defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "8") int size){
+
+        Page<CourseDetailsDto> courseList = courseService.getAllCourses(page, size);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
+                "Fetched all courses successfully", courseList));
+    }
+
+
     @PostMapping("/{courseId}/batch")
     public ResponseEntity<ApplicationResponse<AddCourseBatchResponseDto>> addCourseBatch(
             @NotNull
@@ -48,6 +61,7 @@ public class CourseController {
         return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
                 "Batch created successfully",details));
     }
+
 
 
 }

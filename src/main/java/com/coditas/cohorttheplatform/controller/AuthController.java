@@ -1,8 +1,10 @@
 package com.coditas.cohorttheplatform.controller;
 
 import com.coditas.cohorttheplatform.dto.auth.request.LoginRequestDto;
+import com.coditas.cohorttheplatform.dto.auth.request.RegenerateAccessTokenRequest;
 import com.coditas.cohorttheplatform.dto.auth.request.RegisterRequestDto;
 import com.coditas.cohorttheplatform.dto.auth.response.LoginResponseDto;
+import com.coditas.cohorttheplatform.dto.auth.response.RegenerateAccessTokenResponse;
 import com.coditas.cohorttheplatform.dto.auth.response.RegisterResponseDto;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.AuthService;
@@ -32,14 +34,34 @@ public class AuthController {
                 "User Logged-in successfully", details));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<ApplicationResponse<RegisterResponseDto>> register(@Valid @RequestBody
+    @PostMapping("/instructor/register")
+    public ResponseEntity<ApplicationResponse<RegisterResponseDto>> registerInstructor(@Valid @RequestBody
     RegisterRequestDto request){
 
-        RegisterResponseDto details = authService.register(request);
+        RegisterResponseDto details = authService.registerInstructor(request);
 
         return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
                 "User Registered successfully", details));
+    }
+
+    @PostMapping("/student/register")
+    public ResponseEntity<ApplicationResponse<RegisterResponseDto>> registerStudent(@Valid @RequestBody
+    RegisterRequestDto request){
+
+        RegisterResponseDto details = authService.registerStudent(request);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
+                "User Registered successfully", details));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApplicationResponse<RegenerateAccessTokenResponse>> refreshToken(@Valid @RequestBody
+    RegenerateAccessTokenRequest request){
+
+        RegenerateAccessTokenResponse details = authService.regenerateAccessToken(request);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
+                "Access Token generated successfully", details));
     }
 
 

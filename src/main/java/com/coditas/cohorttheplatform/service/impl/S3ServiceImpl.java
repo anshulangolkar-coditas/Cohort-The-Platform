@@ -9,6 +9,10 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -32,8 +36,7 @@ public class S3ServiceImpl implements S3Service {
                     .contentType(file.getContentType())
                     .build();
 
-            s3Client.putObject(request,
-                    RequestBody.fromBytes(file.getBytes()));
+      s3Client.putObject(request, RequestBody.fromBytes(file.getBytes()));
 
             return fileName;
 
