@@ -1,6 +1,6 @@
 package com.coditas.cohorttheplatform.constants;
 
-public enum Grades {
+public enum Grade {
 
     A,
     B,

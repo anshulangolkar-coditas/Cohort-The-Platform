@@ -23,11 +23,11 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
-    @Column(name = "enrollment_limit", nullable = false)
-    private Long enrollmentLimit;
+    @Column(name = "course_description", nullable = false)
+    private String courseDescription;
 
-    @Column(name = "course_link", nullable = false, unique = true)
-    private String courseLink;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
 
     @Column(name = "is-active", nullable = false)
     @Builder.Default

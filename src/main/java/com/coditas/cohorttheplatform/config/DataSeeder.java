@@ -1,8 +1,8 @@
 package com.coditas.cohorttheplatform.config;
 
 import com.coditas.cohorttheplatform.constants.Role;
-import com.coditas.cohorttheplatform.entity.User;
-import com.coditas.cohorttheplatform.repository.UserRepository;
+import com.coditas.cohorttheplatform.entity.CohortUser;
+import com.coditas.cohorttheplatform.repository.CohortUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class DataSeeder implements CommandLineRunner {
 
-    private final UserRepository userRepository;
+    private final CohortUserRepository cohortUserRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -22,8 +22,8 @@ public class DataSeeder implements CommandLineRunner {
 
         String email = "anshul.angolkar@coditas.com";
 
-        if(!userRepository.existsByEmail(email)){
-            userRepository.save(User.builder()
+        if(!cohortUserRepository.existsByEmail(email)){
+            cohortUserRepository.save(CohortUser.builder()
                     .fullName("Anshul Angolkar")
                     .email(email)
                     .role(Role.ADMIN)

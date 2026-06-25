@@ -1,6 +1,7 @@
 package com.coditas.cohorttheplatform.controller;
 
 import com.coditas.cohorttheplatform.dto.auth.request.LoginRequestDto;
+import com.coditas.cohorttheplatform.dto.auth.request.RegisterRequestDto;
 import com.coditas.cohorttheplatform.dto.auth.response.LoginResponseDto;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.AuthService;
@@ -26,13 +27,20 @@ public class AuthController {
 
         LoginResponseDto details = authService.login(request);
 
-        ApplicationResponse<LoginResponseDto> response = new ApplicationResponse<>(
-                HttpStatus.OK.value(),
-                "User Logged-in successfully",
-                details
-        );
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
+                "User Logged-in successfully", details));
     }
+
+    @PostMapping("/register)")
+    public ResponseEntity<ApplicationResponse<RegisterResponseDto>> register(@Valid @RequestBody
+    RegisterRequestDto request){
+
+        RegisterResponseDto details = authService.register(request);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
+                "User Registered successfully", details));
+    }
+
 
 
 }

@@ -24,20 +24,25 @@ public class Assignment {
     @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
     private Course course;
 
-    @Column(name = "uploaded_date", nullable = false, updatable = false)
+    @Column(name = "assignmnet_title", nullable = false)
+    private String assignmentTitle;
+
+    @Column(name = "assignmnet_description", nullable = false)
+    private String assignmentDescription;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime uploadedDateTime;
+    private LocalDateTime createdAt;
 
     @Column(name = "deadline_date", nullable = false)
-    private LocalDateTime deadlineDateAndTime;
+    private LocalDateTime deadline;
 
     @ManyToOne
     @JoinColumn(name = "uploaded_by", referencedColumnName = "user_id", nullable = false)
-    private User uploadedBy;
+    private CohortUser uploadedBy;
 
     @Column(name = "is_active", nullable = false)
     @Builder.Default
     private boolean isActive = true;
-
 
 }

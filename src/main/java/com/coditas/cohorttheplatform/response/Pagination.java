@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PageResponse<T> {
+public class Pagination<T> {
 
     private List<T> content;
     private int page;
@@ -21,8 +21,8 @@ public class PageResponse<T> {
     private boolean isFirst;
     private boolean isLast;
 
-    public static <T> PageResponse<T> of(final Page<T> page) {
-        return PageResponse.<T>builder()
+    public static <T> Pagination<T> of(final Page<T> page) {
+        return Pagination.<T>builder()
                 .content(page.getContent())
                 .page(page.getNumber())
                 .size(page.getSize())

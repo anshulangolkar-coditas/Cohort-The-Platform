@@ -22,19 +22,22 @@ public class CourseMaterial {
     @Column(name = "material_name", nullable = false)
     private String materialName;
 
-    @Column(name = "material_link", nullable = false)
-    private String materialLink;
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
+    private Course course;
+
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
+
+    @Column(name = "file_key", nullable = false)
+    private String fileKey;
 
     @Column(name = "upload_date", nullable = false, updatable = false)
     private LocalDate uploadedOn;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id", referencedColumnName = "user_id", nullable = false)
-    private User instructor;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "uploaded_by", referencedColumnName = "user_id", nullable = false)
+    private CohortUser instructor;
 
 
 }

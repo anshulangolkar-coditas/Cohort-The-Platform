@@ -17,9 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "cohort_user")
 @Builder
-public class User
+public class CohortUser
         implements UserDetails {
 
     @Id

@@ -1,7 +1,7 @@
 package com.coditas.cohorttheplatform.util;
 
+import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.entity.RefreshToken;
-import com.coditas.cohorttheplatform.entity.User;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.exception.RefreshTokenExpiredException;
 import com.coditas.cohorttheplatform.repository.RefreshTokenRepository;
@@ -64,14 +64,14 @@ public class JwtUtil {
     }
 
     @Transactional
-    public String generateRefreshToken(User user){
+    public String generateRefreshToken(CohortUser cohortUser){
 
         String token = UUID.randomUUID().toString();
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .token(token)
                 .expiresAt(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRY))
-                .user(user)
+                .cohortUser(cohortUser)
                 .build();
 
         RefreshToken savedRefreshToken = refreshTokenRepository.save(refreshToken);

@@ -2,7 +2,7 @@ package com.coditas.cohorttheplatform.service.impl;
 
 import com.coditas.cohorttheplatform.dto.auth.request.LoginRequestDto;
 import com.coditas.cohorttheplatform.dto.auth.response.LoginResponseDto;
-import com.coditas.cohorttheplatform.entity.User;
+import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.exception.AuthenticationException;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.mappings.AuthControllerMapping;
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String accessToken = jwtUtil.generateToken(((UserDetails) authentication.getPrincipal()).getUsername());
-        String refreshToken = jwtUtil.generateRefreshToken(((User) authentication.getPrincipal()));
+        String refreshToken = jwtUtil.generateRefreshToken(((CohortUser) authentication.getPrincipal()));
 
         return authControllerMapping.loginResponse(accessToken, refreshToken);
     }

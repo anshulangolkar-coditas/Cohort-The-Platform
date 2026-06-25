@@ -2,15 +2,18 @@ package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "student_course_enrollment")
+@Table(name = "enrollment")
 @Builder
-public class StudentCourseEnrollment {
+public class Enrollment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +21,16 @@ public class StudentCourseEnrollment {
     private Long enrollmentId;
 
     @ManyToOne
-    @JoinColumn(name = "course_id",referencedColumnName = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "batch_id",referencedColumnName = "course_batch_id", nullable = false)
+    private CourseBatch courseBatch;
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "user_id", nullable = false)
-    private User student;
+    private CohortUser student;
+
+    @Column(name = "enrolled_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDate enrolledAt;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;

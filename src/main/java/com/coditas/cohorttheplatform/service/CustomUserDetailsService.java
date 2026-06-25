@@ -1,9 +1,9 @@
 package com.coditas.cohorttheplatform.service;
 
-import com.coditas.cohorttheplatform.entity.User;
+import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.exception.NotFoundException;
-import com.coditas.cohorttheplatform.repository.UserRepository;
+import com.coditas.cohorttheplatform.repository.CohortUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class CustomUserDetailsService
         implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final CohortUserRepository cohortUserRepository;
 
     @Override
     @NullMarked
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CohortUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    return userRepository
+    return cohortUserRepository
         .findByEmail(username)
         .orElseThrow(() -> new NotFoundException(ExceptionMessages.USER_NOT_FOUND));
     }

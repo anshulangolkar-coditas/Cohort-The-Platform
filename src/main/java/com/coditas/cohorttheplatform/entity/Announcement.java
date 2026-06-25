@@ -20,8 +20,8 @@ public class Announcement {
     private Long announcementId;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "", nullable = false)
-    private Course course;
+    @JoinColumn(name = "batch_id", referencedColumnName = "course_batch_id", nullable = false)
+    private CourseBatch batch;
 
     @Column(name = "content", nullable = false)
     private String content;
@@ -30,7 +30,7 @@ public class Announcement {
     private LocalDate announcementDate;
 
     @ManyToOne
-    @JoinColumn(name = "announcement_made_by", referencedColumnName = "", nullable = false)
-    private User announcementMadeBy;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+    private CohortUser createdBy;
 
 }

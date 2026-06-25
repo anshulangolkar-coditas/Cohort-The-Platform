@@ -2,9 +2,7 @@ package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -38,6 +36,6 @@ public class RefreshToken {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",nullable = false)
-    private User user;
+    private CohortUser cohortUser;
 
 }

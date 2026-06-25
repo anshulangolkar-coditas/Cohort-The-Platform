@@ -1,6 +1,6 @@
 package com.coditas.cohorttheplatform.filter;
 
-import com.coditas.cohorttheplatform.entity.User;
+import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.response.ErrorResponse;
@@ -61,13 +61,13 @@ public class JwtFiler extends OncePerRequestFilter {
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            User user = customUserDetailsService.loadUserByUsername(username);
+            CohortUser cohortUser = customUserDetailsService.loadUserByUsername(username);
 
             if(jwtUtil.isValidToken(token, username)){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        user,
+                        cohortUser,
                         null,
-                        user.getAuthorities()
+                        cohortUser.getAuthorities()
                 );
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
