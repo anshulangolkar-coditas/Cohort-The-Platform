@@ -2,6 +2,7 @@ package com.coditas.cohorttheplatform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Course {
     private String courseDescription;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDate createdAt;
 
     @Column(name = "is-active", nullable = false)
@@ -35,5 +37,9 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<CourseBatch> courseBatches;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", updatable = false, nullable = false)
+    private CohortUser createdBy;
 
 }

@@ -15,6 +15,7 @@ public class ExceptionMessages {
     public static final String PASSWORD_NOT_MATCHED = "Password not matched";
     public static final String INVALID_INVITATION = "Invitation invalid, please try again!!!";
     public static final String EXPIRED_INVITATION = "Invitation expired, please contact admin.";
+    public static final String COURSE_EXISTS = "Course already exists.";
 
 
 }

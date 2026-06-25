@@ -6,4 +6,5 @@
 
     <include file="db/changelog/db.changelog-001-initial-entities.sql"/>
     <include file="db/changelog/db.changelog-002-invitation-table-added.sql"/>
+    <include file="/db/changelog/db.changelog-003-course-table-created-by-column.sql"/>
 </databaseChangeLog>

@@ -1,5 +1,6 @@
 package com.coditas.cohorttheplatform.config;
 
+import com.coditas.cohorttheplatform.constants.Role;
 import com.coditas.cohorttheplatform.filter.JwtFiler;
 import com.coditas.cohorttheplatform.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,16 @@ public class SecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable);
 
+        String[] PUBLIC_URLS = {
+                "/auth/**"
+        };
+
         http.authorizeHttpRequests(auth ->
-                auth.anyRequest().permitAll()
+                auth
+                        .requestMatchers(PUBLIC_URLS).permitAll()
+                        .requestMatchers("/courses/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/on-board/**").hasRole(Role.ADMIN.name())
+                        .anyRequest().authenticated()
                                   );
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
