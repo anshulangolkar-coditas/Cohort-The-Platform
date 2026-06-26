@@ -6,6 +6,7 @@ import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.AssignmentService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,9 @@ public class AssignmentController {
 
     private final AssignmentService assignmentService;
 
-    @PostMapping("/course-batches/{batchId}")
+    @PostMapping("/batches/{batchId}")
     public ResponseEntity<ApplicationResponse<AssignmentResponseDto>> createAssignment(
-            @PathVariable Long batchId,
+            @NotNull @PathVariable Long batchId,
             @Valid @RequestBody CreateAssignmentRequestDto request,
             @AuthenticationPrincipal CohortUser user) {
 

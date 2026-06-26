@@ -25,5 +25,15 @@ public interface CohortUserRepository
                       """)
     List<String> getAllEmailIdByCourseId(Long courseId);
 
+    @Query(
+            value =
+                    """
+                          SELECT s.email
+                          FROM Enrollment e
+                          JOIN e.student s
+                          WHERE e.courseBatch.courseBatchId = :batchId
+                      """)
+    List<String> getAllEmailIdByBatchId(Long batchId);
+
 
 }

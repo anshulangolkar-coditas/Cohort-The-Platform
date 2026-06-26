@@ -8,21 +8,28 @@ import com.coditas.cohorttheplatform.entity.CourseBatch;
 import com.coditas.cohorttheplatform.exception.AuthorizationException;
 import com.coditas.cohorttheplatform.exception.ExceptionMessages;
 import com.coditas.cohorttheplatform.exception.NotFoundException;
-import com.coditas.cohorttheplatform.exception.ResourceNotFoundException;
 import com.coditas.cohorttheplatform.mappings.AssignmentControllerMapping;
 import com.coditas.cohorttheplatform.repository.AssignmentRepository;
+import com.coditas.cohorttheplatform.repository.CohortUserRepository;
 import com.coditas.cohorttheplatform.repository.CourseBatchRepository;
 import com.coditas.cohorttheplatform.service.AssignmentService;
+import com.coditas.cohorttheplatform.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AssignmentServiceImpl implements AssignmentService {
 
     private final AssignmentRepository assignmentRepository;
     private final CourseBatchRepository courseBatchRepository;
     private final AssignmentControllerMapping assignmentControllerMapping;
+    private final EmailService emailService;
+    private final CohortUserRepository cohortUserRepository;
 
 
     @Override
@@ -45,6 +52,16 @@ public class AssignmentServiceImpl implements AssignmentService {
                 .deadline(request.getDeadline())
                 .uploadedBy(user)
                 .build());
+
+
+        List<String> emails = cohortUserRepository.getAllEmailIdByBatchId(batch.getCourseBatchId());
+
+        try {
+            emailService.assignmentUpload(emails);
+        } catch (Exception ex) {
+            log.error("Email Sending failed", ex);
+        }
+
 
         return assignmentControllerMapping.assignmentResponseDto(assignment);
 

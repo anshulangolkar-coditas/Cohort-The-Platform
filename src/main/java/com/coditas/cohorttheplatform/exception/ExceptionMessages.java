@@ -29,6 +29,10 @@ public class ExceptionMessages {
     public static final String BATCH_ALREADY_STARTED = "This batch has already started, enroll in next batch";
     public static final String COURSE_INACTIVE = "Course and batch inActive";
     public static final String NOT_ALLOWED = "Not allowed for this user";
+    public static final String FILE_NULL = "File cannot be null";
+    public static final String FILE_UPLOAD_EXTENSIONS = "Only PDF, DOC, DOCX, PPT, PPTX and ZIP files are allowed";
+    public static final String FILE_UPLOAD_LIMIT = "File size too big, only 10MB allowed.";
+
 
 
 

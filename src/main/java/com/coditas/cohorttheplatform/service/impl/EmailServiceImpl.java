@@ -59,9 +59,6 @@ public class EmailServiceImpl implements EmailService {
             return;
         }
 
-/*        String[] emailIds = new String[emailList.size()];
-        emailIds = emailList.toArray(emailIds);*/
-
         String[] emailIds = emailList.toArray(new String[0]);
 
         String materialUploadMessage = """
@@ -84,5 +81,37 @@ public class EmailServiceImpl implements EmailService {
         }
 
     }
+
+    @Override
+    public void assignmentUpload(List<String> emailList){
+
+        if(emailList.isEmpty()){
+            return;
+        }
+
+        String[] emailIds = emailList.toArray(new String[0]);
+
+        String assignmentUploadMessage = """
+                New Assignment has been uploaded. Please go the dashboard and check it out!!!
+                Make sure you upload the assignment before the deadline date!!!!
+                """;
+
+        try {
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+            mailMessage.setFrom(sender);
+            mailMessage.setBcc(emailIds);
+            mailMessage.setSubject("New Assignment Uploaded!!!");
+            mailMessage.setText(assignmentUploadMessage);
+
+            javaMailSender.send(mailMessage);
+
+        }catch (EmailSendingFailureException ex){
+            throw new EmailSendingFailureException(ExceptionMessages.EMAIL_SENDING_FAILURE);
+        }
+
+    }
+
 
 }
