@@ -35,12 +35,6 @@ public class SecurityConfig {
         auth ->
             auth.requestMatchers(PUBLIC_URLS)
                 .permitAll()
-                .requestMatchers("/courses/**")
-                .hasRole(Role.ADMIN.name())
-                .requestMatchers("/on-board/**")
-                .hasRole(Role.ADMIN.name())
-                .requestMatchers("/*/batches/**")
-                .hasAnyRole(Role.ADMIN.name(), Role.INSTRUCTOR.name())
                 .anyRequest()
                 .permitAll());
 
@@ -66,3 +60,12 @@ public class SecurityConfig {
     }
 
 }
+/*
+                .requestMatchers("/courses/**")
+                .hasRole(Role.ADMIN.name())
+        .requestMatchers("/on-board/**")
+                .hasRole(Role.ADMIN.name())
+        .requestMatchers("/")
+                .hasAnyRole(Role.ADMIN.name(), Role.INSTRUCTOR.name())
+
+ */

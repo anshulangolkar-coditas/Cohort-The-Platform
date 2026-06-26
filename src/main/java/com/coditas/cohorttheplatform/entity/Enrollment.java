@@ -33,6 +33,7 @@ public class Enrollment {
     private LocalDate enrolledAt;
 
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    @Builder.Default
+    private boolean isActive = true;
 
 }

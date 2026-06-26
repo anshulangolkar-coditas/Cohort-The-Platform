@@ -25,6 +25,10 @@ public class ExceptionMessages {
     public static final String BATCH_COURSE_MISMATCH = "Course and batch not matched";
     public static final String REFRESH_TOKEN_NOT_FOUND = "Refresh token not found";
     public static final String USER_ALREADY_EXISTS = "User already exists";
+    public static final String ALREADY_ENROLLED = "Student already enrolled in this course";
+    public static final String BATCH_ALREADY_STARTED = "This batch has already started, enroll in next batch";
+    public static final String COURSE_INACTIVE = "Course and batch inActive";
+    public static final String NOT_ALLOWED = "Not allowed for this user";
 
 
 

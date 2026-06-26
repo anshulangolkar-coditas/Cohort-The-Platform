@@ -2,6 +2,8 @@ package com.coditas.cohorttheplatform.controller;
 
 import com.coditas.cohorttheplatform.dto.coursebatch.request.AddCourseMaterialRequestDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialResponseDto;
+import com.coditas.cohorttheplatform.dto.coursebatch.response.EnrollmentResponseDto;
+import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.CourseBatchService;
@@ -35,6 +37,31 @@ public class CourseBatchController {
         return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
                 "Materials added successfully", details));
     }
+
+    @GetMapping("/{courseId}/batches")
+    public ResponseEntity<ApplicationResponse<GetAllCourseBatch>> getAllBatches(
+            @NotNull @PathVariable Long courseId,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "8") int size){
+
+        GetAllCourseBatch batchList = courseBatchService.getAllBatches(courseId, page, size);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
+                "Fetched all the batches successfully", batchList));
+    }
+
+    @PostMapping("/{courseId}/batches/{batchId}/enroll")
+    public ResponseEntity<ApplicationResponse<EnrollmentResponseDto>> enrollInCourse(
+            @NotNull @PathVariable Long courseId,
+            @NotNull @PathVariable Long batchId,
+            @AuthenticationPrincipal CohortUser user){
+
+        EnrollmentResponseDto details = courseBatchService.enrollInCourse(courseId, batchId, user);
+
+        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
+                "Enrolled in batch successfully", details));
+    }
+
 
 
 }

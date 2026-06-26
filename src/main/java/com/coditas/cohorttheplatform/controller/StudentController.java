@@ -29,17 +29,6 @@ public class StudentController {
               "successfully", courses));
   }
 
-  @GetMapping("/courses/{courseId}/batches")
-    public ResponseEntity<ApplicationResponse<GetAllCourseBatch>> getAllBatches(
-           @NotNull @PathVariable Long courseId,
-          @RequestParam(required = false, defaultValue = "0") int page,
-          @RequestParam(required = false, defaultValue = "8") int size){
-
-      GetAllCourseBatch batchList = studentService.getAllBatches(courseId, page, size);
-
-      return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
-              "Fetched all the batches successfully", batchList));
-  }
 
 
 

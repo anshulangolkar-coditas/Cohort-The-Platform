@@ -10,8 +10,5 @@ public interface StudentService {
             int page,
             int size);
 
-    GetAllCourseBatch getAllBatches(
-            @NotNull Long courseId,
-            int page,
-            int size);
+
 }
