@@ -1,6 +1,7 @@
 package com.coditas.cohorttheplatform.repository;
 
 import com.coditas.cohorttheplatform.entity.CohortUser;
+import com.coditas.cohorttheplatform.entity.Course;
 import com.coditas.cohorttheplatform.entity.CourseBatch;
 import com.coditas.cohorttheplatform.entity.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,9 @@ public interface EnrollmentRepository
     boolean existsByCourseBatchAndStudent(
             CourseBatch courseBatch,
             CohortUser student);
-    
-    
+
+
+    boolean existsByStudentAndCourseBatchCourse(
+            CohortUser user,
+            Course course);
 }

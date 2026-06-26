@@ -2,6 +2,7 @@ package com.coditas.cohorttheplatform.mappings;
 
 import com.coditas.cohorttheplatform.dto.assignment.response.AssignmentResponseDto;
 import com.coditas.cohorttheplatform.entity.Assignment;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +15,10 @@ public class AssignmentControllerMapping {
                 .assignmentDescription(assignment.getAssignmentDescription())
                 .deadline(assignment.getDeadline())
                 .build();
+    }
+
+    public Page<AssignmentResponseDto> getAllAssignments(Page<Assignment> assignments){
+        return assignments.map(this::assignmentResponseDto);
     }
 
 }
