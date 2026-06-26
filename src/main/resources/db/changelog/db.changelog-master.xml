@@ -10,4 +10,5 @@
     <include file="/db/changelog/db.changelog-004-course-batch-table-batch-name.sql"/>
     <include file="/db/changelog/db.changelog-005-basic-changes-in-assignment.sql"/>
     <include file="/db/changelog/db.changelog-006-drop-column-in-material-table.sql"/>
+    <include file="/db/changelog/db.changelog-007-drop-column-in-submission-table.sql"/>
 </databaseChangeLog>

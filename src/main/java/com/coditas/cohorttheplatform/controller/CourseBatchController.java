@@ -4,6 +4,7 @@ import com.coditas.cohorttheplatform.dto.assignment.response.AssignmentResponseD
 import com.coditas.cohorttheplatform.dto.coursebatch.request.AddCourseMaterialRequestDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.EnrollmentResponseDto;
+import com.coditas.cohorttheplatform.dto.coursebatch.response.SubmissionResponseDto;
 import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
@@ -25,47 +26,61 @@ import java.io.IOException;
 @RequestMapping("/courses")
 public class CourseBatchController {
 
-    private final CourseBatchService courseBatchService;
+  private final CourseBatchService courseBatchService;
 
-    @PostMapping("/{courseId}/batches/{batchId}/materials")
-    public ResponseEntity<ApplicationResponse<AddCourseMaterialResponseDto>> addMaterial(
-            @NotNull @PathVariable Long courseId,
-            @NotNull @PathVariable Long batchId,
-            @Valid @ModelAttribute AddCourseMaterialRequestDto request,
-            @AuthenticationPrincipal CohortUser user) {
+  @PostMapping("/{courseId}/batches/{batchId}/materials")
+  public ResponseEntity<ApplicationResponse<AddCourseMaterialResponseDto>> addMaterial(
+      @NotNull @PathVariable Long courseId,
+      @NotNull @PathVariable Long batchId,
+      @Valid @ModelAttribute AddCourseMaterialRequestDto request,
+      @AuthenticationPrincipal CohortUser user) {
 
-        AddCourseMaterialResponseDto details = courseBatchService.addMaterial(courseId, batchId, request, user);
+    AddCourseMaterialResponseDto details =
+        courseBatchService.addMaterial(courseId, batchId, request, user);
 
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
-                "Materials added successfully", details));
-    }
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.CREATED.value(), "Materials added successfully", details));
+  }
 
-    @GetMapping("/{courseId}/batches")
-    public ResponseEntity<ApplicationResponse<GetAllCourseBatch>> getAllBatches(
-            @NotNull @PathVariable Long courseId,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "8") int size){
+  @GetMapping("/{courseId}/batches")
+  public ResponseEntity<ApplicationResponse<GetAllCourseBatch>> getAllBatches(
+      @NotNull @PathVariable Long courseId,
+      @RequestParam(required = false, defaultValue = "0") int page,
+      @RequestParam(required = false, defaultValue = "8") int size) {
 
-        GetAllCourseBatch batchList = courseBatchService.getAllBatches(courseId, page, size);
+    GetAllCourseBatch batchList = courseBatchService.getAllBatches(courseId, page, size);
 
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
-                "Fetched all the batches successfully", batchList));
-    }
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.OK.value(), "Fetched all the batches successfully", batchList));
+  }
 
-    @PostMapping("/{courseId}/batches/{batchId}/enroll")
-    public ResponseEntity<ApplicationResponse<EnrollmentResponseDto>> enrollInCourse(
-            @NotNull @PathVariable Long courseId,
-            @NotNull @PathVariable Long batchId,
-            @AuthenticationPrincipal CohortUser user){
+  @PostMapping("/{courseId}/batches/{batchId}/enroll")
+  public ResponseEntity<ApplicationResponse<EnrollmentResponseDto>> enrollInCourse(
+      @NotNull @PathVariable Long courseId,
+      @NotNull @PathVariable Long batchId,
+      @AuthenticationPrincipal CohortUser user) {
 
-        EnrollmentResponseDto details = courseBatchService.enrollInCourse(courseId, batchId, user);
+    EnrollmentResponseDto details = courseBatchService.enrollInCourse(courseId, batchId, user);
 
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
-                "Enrolled in batch successfully", details));
-    }
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.CREATED.value(), "Enrolled in batch successfully", details));
+  }
 
+  @GetMapping("/batches/{batchId}/assignments/{assignmentId}/submissions")
+  public ResponseEntity<ApplicationResponse<Page<SubmissionResponseDto>>> getAllSubmissions(
+      @NotNull @PathVariable Long batchId,
+          @NotNull @PathVariable Long assignmentId,
+          @AuthenticationPrincipal CohortUser user,
+          @RequestParam(required = false, defaultValue = "0") int page,
+          @RequestParam(required = false, defaultValue = "8") int size
+          ) {
 
+    Page<SubmissionResponseDto> details = courseBatchService.getAllSubmissions(batchId, assignmentId, user, page, size);
 
-
-
+    return ResponseEntity.ok((ApplicationResponse.success(HttpStatus.OK.value(),
+            "Fetched all the submissions successfully", details)));
+  }
 }

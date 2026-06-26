@@ -4,6 +4,7 @@ import com.coditas.cohorttheplatform.constants.Role;
 import com.coditas.cohorttheplatform.dto.coursebatch.request.AddCourseMaterialRequestDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.EnrollmentResponseDto;
+import com.coditas.cohorttheplatform.dto.coursebatch.response.SubmissionResponseDto;
 import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
 import com.coditas.cohorttheplatform.entity.*;
 import com.coditas.cohorttheplatform.exception.AuthorizationException;
@@ -37,6 +38,8 @@ public class CourseBatchServiceImpl implements CourseBatchService {
   private final EmailService emailService;
   private final CohortUserRepository cohortUserRepository;
   private final EnrollmentRepository enrollmentRepository;
+  private final AssignmentRepository assignmentRepository;
+  private final SubmissionRepository submissionRepository;
 
   @Transactional
   @Override
@@ -112,9 +115,29 @@ public class CourseBatchServiceImpl implements CourseBatchService {
     return courseBatchControllerMapping.enrollmentResponse(enrollment, course, courseBatch, user);
   }
 
+    @Override
+    public Page<SubmissionResponseDto> getAllSubmissions(
+            Long batchId,
+            Long assignmentId,
+            CohortUser user,int page, int size) {
+
+    CourseBatch batch = findCourseBatchById(batchId);
+    Assignment assignment = findAssigmentById(assignmentId);
+
+    PageRequest pageRequest = PageRequest.of(page, size);
+
+    if(!assignment.getCourseBatch().getCourseBatchId().equals(batch.getCourseBatchId())){
+      throw new AuthorizationException(ExceptionMessages.BATCH_ASSIGNMENT_MISMATCH);
+    }
+
+    Page<Submission> submissions = submissionRepository.findAllByAssignment(assignment, pageRequest);
+
+    return courseBatchControllerMapping.getAllSubmissions(submissions);
+
+    }
 
 
-  private Course findCourseById(Long courseId) {
+    private Course findCourseById(Long courseId) {
     return courseRepository
         .findById(courseId)
         .orElseThrow(() -> new NotFoundException(ExceptionMessages.COURSE_NOT_FOUND));
@@ -124,6 +147,11 @@ public class CourseBatchServiceImpl implements CourseBatchService {
     return courseBatchRepository
         .findById(batchId)
         .orElseThrow(() -> new NotFoundException(ExceptionMessages.BATCH_NOT_FOUND));
+  }
+
+  private Assignment findAssigmentById(Long assignmentId){
+    return assignmentRepository.findById(assignmentId)
+            .orElseThrow(() -> new NotFoundException(ExceptionMessages.ASSIGNMENT_NOT_FOUND));
   }
 
   private void courseEnrollmentValidation(Course course, CourseBatch batch, CohortUser user){

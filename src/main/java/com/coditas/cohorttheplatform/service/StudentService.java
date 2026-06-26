@@ -3,8 +3,11 @@ package com.coditas.cohorttheplatform.service;
 import com.coditas.cohorttheplatform.dto.assignment.response.AssignmentResponseDto;
 import com.coditas.cohorttheplatform.dto.common.CourseDetailsDto;
 import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
+import com.coditas.cohorttheplatform.dto.student.request.AssignmentSubmitRequestDto;
+import com.coditas.cohorttheplatform.dto.student.response.AssignmentSubmitResponseDto;
 import com.coditas.cohorttheplatform.dto.student.response.CourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.entity.CohortUser;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 
@@ -23,4 +26,12 @@ public interface StudentService {
             CohortUser user,
             int page,
             int size);
+
+    String downloadMaterial(
+            Long materialId,
+            CohortUser user);
+
+    AssignmentSubmitResponseDto submitAssignment(
+            @NotNull Long assignmentId,
+            @Valid AssignmentSubmitRequestDto request, CohortUser student);
 }

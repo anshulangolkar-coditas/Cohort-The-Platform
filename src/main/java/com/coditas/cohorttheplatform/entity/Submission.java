@@ -40,11 +40,6 @@ public class Submission {
     @CreationTimestamp
     private LocalDateTime submittedAt;
 
-    @Column(name = "submission_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private AssignmentStatus submissionStatus = AssignmentStatus.NOT_SUBMITTED;
-
     @Column(name = "grade")
     @Enumerated(EnumType.STRING)
     private Grade grade;

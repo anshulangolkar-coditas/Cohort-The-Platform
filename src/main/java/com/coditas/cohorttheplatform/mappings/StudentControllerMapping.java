@@ -1,7 +1,9 @@
 package com.coditas.cohorttheplatform.mappings;
 
+import com.coditas.cohorttheplatform.dto.student.response.AssignmentSubmitResponseDto;
 import com.coditas.cohorttheplatform.dto.student.response.CourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.entity.CourseMaterial;
+import com.coditas.cohorttheplatform.entity.Submission;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,14 @@ public class StudentControllerMapping {
 
     public Page<CourseMaterialResponseDto> getAllMaterials(Page<CourseMaterial> materials){
         return materials.map(this::courseMaterialResponse);
+    }
+
+    public AssignmentSubmitResponseDto assignmentSubmitResponse(Submission submission){
+        return AssignmentSubmitResponseDto.builder()
+                .submissionId(submission.getSubmissionId())
+                .fileName(submission.getFileName())
+                .submittedOn(submission.getSubmittedAt())
+                .build();
     }
 
 

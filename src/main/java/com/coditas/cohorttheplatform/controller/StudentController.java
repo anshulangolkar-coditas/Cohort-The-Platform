@@ -2,11 +2,13 @@ package com.coditas.cohorttheplatform.controller;
 
 import com.coditas.cohorttheplatform.dto.assignment.response.AssignmentResponseDto;
 import com.coditas.cohorttheplatform.dto.common.CourseDetailsDto;
-import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
+import com.coditas.cohorttheplatform.dto.student.request.AssignmentSubmitRequestDto;
+import com.coditas.cohorttheplatform.dto.student.response.AssignmentSubmitResponseDto;
 import com.coditas.cohorttheplatform.dto.student.response.CourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import com.coditas.cohorttheplatform.response.ApplicationResponse;
 import com.coditas.cohorttheplatform.service.StudentService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,5 +64,27 @@ public class StudentController {
     return ResponseEntity.ok(
         ApplicationResponse.success(
             HttpStatus.OK.value(), "Materials fetched successfully", materials));
+  }
+
+  @GetMapping("/materials/{materialId}/download")
+  public ResponseEntity<ApplicationResponse<String>> downloadMaterial(
+      @PathVariable Long materialId, @AuthenticationPrincipal CohortUser user) {
+
+    String url = studentService.downloadMaterial(materialId, user);
+
+    return ResponseEntity.ok(
+        ApplicationResponse.success(HttpStatus.OK.value(), "Download link generated", url));
+  }
+
+  @PostMapping("/assignments/{assignmentId}/submit")
+  public ResponseEntity<ApplicationResponse<AssignmentSubmitResponseDto>> submitAssignment(
+      @NotNull @PathVariable Long assignmentId,
+      @Valid @ModelAttribute AssignmentSubmitRequestDto request,
+          @AuthenticationPrincipal CohortUser student) {
+
+    AssignmentSubmitResponseDto details = studentService.submitAssignment(assignmentId, request, student);
+
+    return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
+            "File Uploaded successfully", details));
   }
 }

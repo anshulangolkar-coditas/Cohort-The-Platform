@@ -33,6 +33,10 @@ public class ExceptionMessages {
     public static final String FILE_UPLOAD_EXTENSIONS = "Only PDF, DOC, DOCX, PPT, PPTX and ZIP files are allowed";
     public static final String FILE_UPLOAD_LIMIT = "File size too big, only 10MB allowed.";
     public static final String NOT_ENROLLED = "Student Not enrolled in this batch.";
+    public static final String MATERIAL_NOT_FOUND = "Material Not Found";
+    public static final String ASSIGNMENT_NOT_FOUND = "Assignment Not Found";
+    public static final String DEADLINE_PASSED = "Assignment submission deadline passed";
+    public static final String BATCH_ASSIGNMENT_MISMATCH = "Assignment and course not matched";
 
 
 

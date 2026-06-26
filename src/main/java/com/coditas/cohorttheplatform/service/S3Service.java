@@ -8,5 +8,7 @@ public interface S3Service {
 
     String uploadFile(MultipartFile file);
 
+    String generatePresignedUrl(String fileKey);
+
 
 }

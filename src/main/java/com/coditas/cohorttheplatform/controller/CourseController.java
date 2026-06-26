@@ -22,45 +22,43 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/courses")
 public class CourseController {
 
-    private final CourseService courseService;
+  private final CourseService courseService;
 
+  @PostMapping
+  public ResponseEntity<ApplicationResponse<AddCourseResponseDto>> addCourse(
+      @Valid @RequestBody AddCourseRequestDto request, @AuthenticationPrincipal CohortUser user) {
 
-    @PostMapping
-    public ResponseEntity<ApplicationResponse<AddCourseResponseDto>> addCourse(@Valid @RequestBody
-    AddCourseRequestDto request, @AuthenticationPrincipal
-            CohortUser user){
+    AddCourseResponseDto details = courseService.addCourse(request, user);
 
-        AddCourseResponseDto details = courseService.addCourse(request, user);
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.CREATED.value(), "Course Added Successfully", details));
+  }
 
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
-                "Course Added Successfully", details));
-    }
+  @GetMapping
+  public ResponseEntity<ApplicationResponse<Page<CourseDetailsDto>>> getAllCourses(
+      @RequestParam(required = false, defaultValue = "0") int page,
+      @RequestParam(required = false, defaultValue = "8") int size) {
 
+    Page<CourseDetailsDto> courseList = courseService.getAllCourses(page, size);
 
-    @GetMapping
-    public ResponseEntity<ApplicationResponse<Page<CourseDetailsDto>>> getAllCourses( @RequestParam(required = false, defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "8") int size){
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.OK.value(), "Fetched all courses successfully", courseList));
+  }
 
-        Page<CourseDetailsDto> courseList = courseService.getAllCourses(page, size);
+  @PostMapping("/{courseId}/batch")
+  public ResponseEntity<ApplicationResponse<AddCourseBatchResponseDto>> addCourseBatch(
+      @NotNull @PathVariable Long courseId,
+      @Valid @RequestBody AddCourseBatchRequestDto request,
+      @AuthenticationPrincipal CohortUser user) {
 
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.OK.value(),
-                "Fetched all courses successfully", courseList));
-    }
+    AddCourseBatchResponseDto details = courseService.addCourseBatch(courseId, request, user);
 
-
-    @PostMapping("/{courseId}/batch")
-    public ResponseEntity<ApplicationResponse<AddCourseBatchResponseDto>> addCourseBatch(
-            @NotNull
-            @PathVariable
-            Long courseId,
-            @Valid @RequestBody
-            AddCourseBatchRequestDto request,
-            @AuthenticationPrincipal CohortUser user){
-
-        AddCourseBatchResponseDto details = courseService.addCourseBatch(courseId, request, user);
-
-        return ResponseEntity.ok(ApplicationResponse.success(HttpStatus.CREATED.value(),
-                "Batch created successfully",details));
-    }
+    return ResponseEntity.ok(
+        ApplicationResponse.success(
+            HttpStatus.CREATED.value(), "Batch created successfully", details));
+  }
 
 
 

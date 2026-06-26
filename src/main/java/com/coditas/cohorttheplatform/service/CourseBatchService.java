@@ -3,10 +3,12 @@ package com.coditas.cohorttheplatform.service;
 import com.coditas.cohorttheplatform.dto.coursebatch.request.AddCourseMaterialRequestDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.EnrollmentResponseDto;
+import com.coditas.cohorttheplatform.dto.coursebatch.response.SubmissionResponseDto;
 import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
 import com.coditas.cohorttheplatform.entity.CohortUser;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,4 +29,9 @@ public interface CourseBatchService {
             @NotNull Long courseId,
             @NotNull Long batchId,
             CohortUser user);
+
+    Page<SubmissionResponseDto> getAllSubmissions(
+            @NotNull Long batchId,
+            @NotNull Long assignmentId,
+            CohortUser user, int page, int size);
 }

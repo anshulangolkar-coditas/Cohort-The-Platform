@@ -2,6 +2,7 @@ package com.coditas.cohorttheplatform.mappings;
 
 import com.coditas.cohorttheplatform.dto.coursebatch.response.AddCourseMaterialResponseDto;
 import com.coditas.cohorttheplatform.dto.coursebatch.response.EnrollmentResponseDto;
+import com.coditas.cohorttheplatform.dto.coursebatch.response.SubmissionResponseDto;
 import com.coditas.cohorttheplatform.dto.student.GetAllCourseBatch;
 import com.coditas.cohorttheplatform.entity.*;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,21 @@ public class CourseBatchControllerMapping {
                 .build();
     }
 
+    public SubmissionResponseDto submissionResponse(Submission submission){
+        return SubmissionResponseDto.builder()
+                .submissionId(submission.getSubmissionId())
+                .fileName(submission.getFileName())
+                .submittedAt(submission.getSubmittedAt())
+                .studentDetails(commonDtoMapping.cohortUserDetails(submission.getStudent()))
+                .build();
+    }
+
+    public Page<SubmissionResponseDto> getAllSubmissions(Page<Submission> submissions){
+        return submissions.map(this::submissionResponse);
+    }
+
 
 
 
 }
+
